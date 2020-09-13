@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="box">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul> 
+	<script>
+	// es6
+		// let const
+		// let 特点：
+			// 1. 没有变量提升
+			// 2. 不能重复声明
+			// let a = 1;
+			// let a = 2;
+			// console.log(a);  // 报错
+			// let b = 2;
+			// {} 块级作用域 在{}内部不可以提前使用被声明的变量 （暂时性死区）
+			// { // 相当于一个自执行函数
+				// console.log(b);
+				// let b = 3;
+			// }
+			// for(let i=0;i<10;i++){
+			// 	console.log(i)
+			// }
+			// for(let i=0;i<box.children.length;i++){
+			// 	box.children[i].onclick = function(){
+			// 		console.log(i)
+			// 	}
+			// }
+		
+		// const 定义常量 只读 一旦定义必须赋值 不存在变量提升 不能重复定义
+		// 因为指向引用地址 所以不报错
+		// const obj = {name:'sxq'};
+		// obj.name = 'sss';
+		// console.log(obj)
+		
+		
+		// 解构赋值 左右解构一致
+		// 数组解构赋值 
+			// 按照顺序解构赋值
+			// 省略解构赋值 用, 占位
+			// let arr = [1,2,3,4,5,6];
+			// let [a,b] = arr;
+			// console.log(a,b)
+			// let [,c] = arr;
+			// console.log(c);
+			// let arr1 = [1,2,3,[4,5]];
+			// let [,,,[,d]] = arr1;
+			// console.log(d)
+			
+
+		// 不定参赋值
+			// ... 拓展运算符
+			// let [a,,,...b] = arr1;
+			// console.log(a,b);
+			// let [a,...b] = arr;
+			// console.log(a,b);
+			// let arr = [1,undefined];
+			// 用 = 给参数设定默认值 (只有值为undefined时才会为默认值)
+			// let [a,b=2] = arr;
+			// console.log(a,b)
+			// let a = box.children;
+			// let [n] = a;
+			// console.log(n);
+			// let arr = [1,2,3,[5,[8,9]]];
+			// let [,a,,[b,c]] = arr;
+			// console.log(a,b,c);
+			// let arr = [1,2,3,[5,[8,9,10,11]]];
+			// let [,a,,[b,[,,...c]]] = arr;
+			// console.log(a,b,c);
+			// let arr = [1,2,3,[5,[8,9,10,11]]];
+			// let {length} = arr;
+			// console.log(length);
+
+
+		// 对象解构赋值
+			// 1. 普通解构赋值
+				// 对象解构赋值是根据key（属性值）来一一对应的
+				// 可以用 : 加别名
+				// let obj = {name:'sxq',age:20};
+				// let {name:sss,age} = obj;
+				// console.log(name:sss,age);
+				// let obj = {name:'sxq',age:20,carlist:['a','b','d']};
+				// let {age:cage,carlist:[,x]} = obj;
+				// console.log(cage,x);
+				// let obj = {name:'sxq'};
+				// let {name,age=20} = obj;
+				// console.log(age);
+				// 当右侧不为对象时 会将右侧转换为对象
+				// let obj = 1;
+				// let {a} = obj;
+				// console.log(a);
+				// let {__proto__} = Object(1)
+				// console.log(__proto__)
+				// let {a} = null;
+				// let {b} = undefined;
+				// 会报错 因为null undefined不能被转化为对象
+		// let定义的属性不会挂载window上
+			// var name = 'sxq';
+			// console.log(window.name)
+			// let name = 'sxsssq';
+			// console.log(window.name)
+
+
+		// 箭头函数
+			// 1.没有this this指向上级作用域 对象{}不是作用域
+			// 2.没有 funciton 关键字
+			// 3.没有 arguments，可以使用拓展运算符
+			// 4.只有一个参数时，可以省略小括号
+			// 5.没有大括号的情况下，需要省略 return 关键字
+				// function add(a){
+				// 	return a+1;
+				// }
+				// console.log(add(1));
+				// let adds = (a) => a+1;
+				// console.log(adds(1))
+				// let obj = {
+				// 	name:()=>{
+				// 		console.log(this)
+				// 	}
+				// }
+				// obj.name()
+				// let sum = (...arg) =>{
+				// 	console.log(...arg)
+				// }
+				// sum(3,4)
+				// function sum(b){
+				// 	return function(c){
+				// 		return b+c;
+				// 	}
+				// }
+				// 有大于两个箭头的箭头函数叫做高级函数
+				// let sum=b=>c=>b+c; 
+				// console.log(sum(1)(1));
+		
+
+
+		// 字符串
+			// 模板字符串 ``
+			// 变量用${}解析
+			// let a = 'sxq';
+			// let str = '<div>hello'+a+'</div>'+'<div>hello'+a+'</div>'
+			// let strs = `<div>hello ${a}</div>
+			// 			<div>hello ${a}</div>`
+			// console.log(strs);
+		
+
+
+		// 新增方法
+			// padStart padEnd includes
+			// padStart padEnd 补全
+				// 第一个参数 不足几位补全
+				// 第二个参数 补位字符
+				// let str = '1'.padStart(2,0);
+				// console.log(str)
+				// let strs = '1'.padEnd(2,0);
+				// console.log(strs)
+			// includes 是否包含 返回布尔值
+				// let str = 'asd'.includes('as');
+				// console.log(str)
+			// ...
+				// 剩余运算符
+					// [a,...b] = [1,2,3,4];
+					// function arg(a,...b){
+					// 	console.log(b);
+					// }
+					// arg(1,2,3,4,5,6,7,8,9,0)
+				// 展开运算符
+					// [3,4].concat([5,6]);
+					// let arr = [...[3,4],...[5,6]];
+					// console.log(arr)
+					// {name:'sxq'}{age:20};
+					// let obj = {...{name:'sxq',a:{name:'qqq'}},...{age:20}};
+					// 浅拷贝 拷贝一层
+						// let clone = {...obj}
+						// clone.a.name = "sss"
+						// console.log(obj,clone)
+					// 深拷贝 拷贝多层
+						// let obj = {name:'sxq',age:20,like:{name:'wzy'},q:/^[2,3,4,5]$/,s:new Date(),c:null,b:undefined,a:function(){}};
+						// let clone = {...obj}
+						// console.log(clone)
+						// 1. JSON.parse(JSON.stringify(obj))
+							// 缺点 不能拷贝 undefined 和 函数 等
+							// cloneObj = JSON.parse(JSON.stringify(obj));
+							// obj.name = 'ssss';
+							// console.log(cloneObj)
+						// 
+						// function deepClone(obj){
+						// 	if(typeof obj !== 'object')return obj;
+						// 	if(obj == null)return null;
+						// 	if(obj instanceof Date)return new Date(obj);
+						// 	if(obj instanceof RegExp)return new RegExp(obj);
+						// 	let cloneObj = new obj.constructor();// 保留继承关系
+						// 	for(key in obj){
+						// 		cloneObj[key] = typeof obj[key]=="object"?deepClone(obj[key]):obj[key];
+						// 	}
+						// 	return cloneObj;
+						// }
+						// let obj = {name:'sxq',age:20,like:{name:'wzy'},q:/^[2,3,4,5]$/,s:new Date(),c:null,b:undefined,a:function(){}};
+						// let cloneObj = deepClone(obj);
+						// obj.name = 'sdaef';
+						// console.log(cloneObj)
+						// Object.prototype.toString.call() 
+						// console.log(Object.prototype.toString.call(new Date()))instanceof 
+						// console.log(new Date() instanceof Date)
+					
+
+		// 数组
+			// filter 过滤 返回一个条件为真的新数组
+				// let arr = [2,3,4,5,6,7,,8,9,11];
+				// let newarr = arr.filter(item=>item>4&&item<9);
+				// console.log(newarr)
+				// Array.prototype.myFilter = function(cb){
+				// 	var arr = []
+				// 	for(var i=0;i<this.length;i++){
+				// 		if(cb(this[i],i,this)){
+				// 			arr.push(this[i])
+				// 		}
+				// 	}
+				// 	return arr
+				// }
+				// let arr = [1,2,3].myFilter(function(item,i){
+				// 	console.log(item)
+				// 	return item>2
+				// })
+				// console.log(arr)
+			// map 映射 把一个数组映射为一个新数组
+				// let arr = [1,2,3];
+				// let newarr = arr.map(item=>`<li>${item}</li>`);
+				// newarr = newarr.join('')
+				// console.log(newarr)
+				// let arr = [1,2,3];
+				// let newarr = arr.map(item=>item*2);
+				// console.log(newarr)
+				// Array.prototype.myMap = function(cb){
+				// 	var arr = []
+				// 	for(var i=0;i<this.length;i++){
+				// 		arr.push(cb(this[i],i,this))
+				// 	}
+				// 	return arr
+				// }
+				// let arr = [1,2,3].myMap(function(item,i){
+				// 	console.log(item*2)
+				// 	return item*2
+				// })
+				// console.log(arr)
+			// reduce 收敛  有四个参数 return的值为下一次的 x  剩下三个参数与之前方法一样 第二个参数为数组第二个值
+				// eval  强行将字符串转化为js表达式
+				// let add = eval([1,2,3,4,5,6].join('+'));
+				// console.log(add)
+				// let arr = [1,2,NaN,3,4,5,6];
+				// let newarr =  arr.reduce((x,y,i)=>{
+				// 	// console.log(x,y)
+				// 	console.log(i)
+				// 	return x+y
+				// },10);// 给第一个传参 默认为数组第一个值 （第一次） 第二个参数为数组第一个值
+				// console.log(newarr);
+				// 1. 数组前加 0 
+				// 2. 传参 0
+				// let arr = [{name:'1',price:30,count:5},{name:'2',price:75,count:3},{name:'3',price:500,count:2}];
+				// let newarr = arr.reduce((x,y)=>{
+				// 	y = y.price*y.count
+				// 	return x+y
+				// },0)
+				// console.log(newarr)
+				// console.log(30*5+75*3+500*2)
+				// let key = ["name","age"];
+				// let val = ["sxq",20];
+				// let newarr = key.reduce((prev,next,index)=>{
+				// 	prev[next] = val[index];
+				// 	return prev;
+				// },{});
+				// console.log(newarr)
+				// Array.prototype.myReduce = function(cb,prev){
+				// 	for(var i=0;i<this.length;i++){
+				// 		if(prev!==undefined){
+				// 			prev = cb(prev,this[i],i,this);
+				// 		}else{
+				// 			if(i==0){
+				// 				prev = this[i];
+				// 			}else{
+				// 				prev = cb(prev,this[i+1],i+1,this);
+				// 			}
+				// 		}
+				// 	}
+				// 	return prev;
+				// }
+				// var arr = [1,2,NaN,3,4].myReduce(function(prev,next){
+				// 	console.log(prev,next)
+				// 	return prev+next;
+				// },123)
+				// console.log(arr)
+				// 老师封装的
+				// Array.prototype.myReduce = function(cb,prev){
+				// 	for(var i=0;i<this.length;i++){
+				// 		if(!prev){// 第一次或没有传参 (只进一次)
+				// 			prev = cb(this[i],this[i+1],i+1,this);
+				// 			i++
+				// 		}else{// 第二次或有传参
+				// 			prev = cb(prev,this[i],i,this);
+				// 		}
+				// 	}
+				// 	return prev;
+				// }
+				// var arr = [1,2,NaN,3,4].myReduce(function(prev,next){
+				// 	console.log(prev,next)
+				// 	return prev+next;
+				// },10)
+				// console.log(arr)
+				
+			// find  找到条件为真立即返回 不再继续查找 返回条件为真的元素
+				// let arr = [1,2,4,5].find(item=>item>2);
+				// console.log(arr)
+			// includes 查找数组中是否存在查找项 返回布尔值 === 判断
+				// let arr = [1,2,3,4,5].includes(1);
+				// console.log(arr)
+			// some  一真即真 返回布尔值
+			// every  一假即假 返回布尔值
+				// let arr = [1,2,3,4,5].some(item=>item>2);
+				// console.log(arr)
+				// let arrs = [1,2,3,4,5].every(item=>item>2);
+				// console.log(arrs)
+				// Array.prototype.mySome = function(cb){
+				// 	for(var i=0;i<this.length;i++){
+				// 		if(cb(this[i],i,this)){
+				// 			return true
+				// 		}
+				// 	}
+				// 	return false
+				// }
+				// let arr = [1,2,3].mySome(function(item,i){
+				// 	return item>1
+				// })
+				// console.log(arr)
+				// Array.prototype.myEvery = function(cb){
+				// 	for(var i=0;i<this.length;i++){
+				// 		if(!cb(this[i],i,this)){
+				// 			return false
+				// 		}
+				// 	}
+				// 	return true
+				// }
+				// let arr = [1,2,3].myEvery(function(item,i){
+				// 	return item>0
+				// })
+				// console.log(arr)
+			// set 去重
+			// Array.from 转换为数组
+				// let arr = Array.from(new Set([1,2,3,3,null,null,undefined,undefined,NaN,NaN]));
+				// console.log(arr)
+				// let arr = [0,0,null,null,undefined,undefined,2,2,3,3,4,5,5];
+				// let newarr = [];
+				// let obj = {};
+				// for(var i=0;i<arr.length;i++){
+				// 	// if(!obj[arr[i]]){
+				// 	// 	if(obj[arr[i]]===0||obj[arr[i]]===null){// undefined 有bug
+				// 	// 		continue;
+				// 	// 	}
+				// 	// 	newarr.push(arr[i])
+				// 	// }
+				// 	obj[arr[i]] = arr[i];
+				// }
+				// for(var i in obj){
+				// 	newarr.push(obj[i])
+				// }
+				// console.log(newarr)
+			// 数组扁平化
+				// 把多维数组转化为一维数组
+				// let arr = [1,2,3,[4,5],[6,7,[8,9,[1,[1,[1]]]]]];
+				// 二维转一维
+				// 1.[].concat.apply([],arr);
+					// let newarr = [].concat.apply([],arr);
+					// console.log(newarr)
+				// 2.[].concat(...arr);
+					// let newarr = [].concat(...arr);
+					// console.log(newarr)
+				// 3.reduce 二维转一维
+					// let newarr = arr.reduce(function(prev,next){
+					// 	return Array.isArray(next)?prev=prev.concat(...next):prev=prev.concat(next)
+					// },[])
+					// console.log(newarr)
+				// 4.for循环 递归函数
+					// function bph(arr){
+					// 	var newarr = [];
+					// 	function flat(arr){
+					// 		for(var i=0;i<arr.length;i++){
+					// 			if(Array.isArray(arr[i])){
+					// 				console.log(arr[i])
+					// 				flat(arr[i])
+					// 			}else{
+					// 				newarr.push(arr[i])
+					// 			}
+					// 		}
+					// 	}
+					// 	flat(arr)
+					// 	return newarr;
+					// }
+					// console.log(bph([1,2,[3,4,[5,6,[7,8,[9,10]]]]]))
+
+						
+					// function flat(arr){
+					// 	var newarr = [];
+					// 	for(var i=0;i<arr.length;i++){
+					// 		if(Array.isArray(arr[i])){
+					// 			newarr = newarr.concat(flat(arr[i]))
+					// 		}else{
+					// 			newarr.push(arr[i])
+					// 		}
+					// 	}
+					// 	return newarr;
+					// }
+					// console.log(flat([1,2,[3,4,[5,6,[7,8,[9,10]]]]]))
+				// 5.arr.join().split(',') 元素为字符串
+					// let arr = [1,2,[3,4,[5,6,[7,8,[9,10]]]]];
+					// let newarr = arr.join().split(',');
+					// console.log(newarr)
+					//  mdn 文档
+			
+
+
+
+
+
+
+
+
+
+// var length = 10;
+// function fn() {
+//   console.log(this.length);
+// }
+
+// var obj = {
+//   length: 5,
+//   method: function(fn) {
+//     fn();
+//     arguments[0]();
+//     console.log(arguments)
+//   }
+// };
+
+// obj.method(fn,2,1,1,1,1,1,1,1); 
+
+
+
+
+
+
+// 浅拷贝
+
+// function simpleClone(initalObj) {
+//     var obja = {};
+//     for ( var i in initalObj) {
+//         obja[i] = initalObj[i];
+//         console.log(initalObj[i],'源对象')
+//         console.log(obja[i],'拷贝对象')
+//     }
+//     return obja;
+// }
+ 
+// var obj = {
+//     a: "hello",
+//     b:{
+//         a: "world",
+//         b: 21
+//     },
+//     c:["Bob", "Tom", "Jenny"],
+//     d:function() {
+//         alert("hello world");
+//     }
+// };
+// var cloneObj = simpleClone(obj);
+ 
+// console.log(cloneObj.a);
+// console.log(cloneObj.b);
+// console.log(cloneObj.c);
+// console.log(cloneObj.d);
+ 
+// //更改原对象中的a,b,c,d，看看拷贝过来的对象是否变化
+// cloneObj.a = "changed";
+// cloneObj.b.a = "changed";
+// cloneObj.b.b = 25;
+// // cloneObj.b = {a:'two',b:20};
+// // cloneObj.c = [1,2,3];
+// cloneObj.c[0] = 1;
+// cloneObj.d = function() { alert("changed"); };
+// console.log(obj.a);    //hello
+// console.log(obj.b);    //{a:"changed",b:25},事实上就是只有对象是拷贝的引用类型
+// console.log(obj.c);    //['Bob','Tom','Jenny']
+// console.log(obj.d);    //...alert("hello world")
+
+// console.log(cloneObj.c);
+
+
+// var arr = [1,2,3];
+// var newarr = arr;
+// newarr = [525,563,645];
+// console.log(arr)
+
+
+// var obj = {
+// 	a:[1,2,3]
+// }
+// var newobj = obj;
+// newobj.a[1] = 5;
+// console.log(obj.a)
+
+
+
+// 获取所有ul 由类数组转化为数组
+// var listall = [].concat.apply([],document.querySelectorAll('ul'));
+// // 获取所有删除按钮
+// var removebtn = document.querySelectorAll('button');
+// // 遍历所有ul 给删除按钮添加点击事件
+// listall.map((item,index)=>{
+// 	removebtn[index].onclick = ()=>{
+// 		// 删除当前按钮的整个父元素
+// 		listall[index].remove()
+// 	}
+// })
+
+
+
+	</script>
+</body>
+</html>

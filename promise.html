@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.ballMax{
+			width: 100%;
+			position: relative;
+		}
+		.ballMax p{
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			background: #333;
+			color: #fff;
+			text-align: center;
+			line-height: 80px;
+			position: absolute;
+		}
+		#ball2{
+			top: 100px;
+		}
+		#ball3{
+			top: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div class="ballMax">
+		<p id="ball1">1</p>
+		<p id="ball2">2</p>
+		<p id="ball3">3</p>
+	</div>
+</body>
+<script>
+	// promise 解决回调地狱 是一种异步流程的解决手段
+		// promise 有三种状态 成功 失败 等待 只有等待状态能转化为成功或失败 失败不能成功 成功不能失败
+	// 小球运动
+		// function move(ele,target,callback){
+		// 	var left = 0;
+		// 	var t = setInterval(()=>{
+		// 		if(left<target){
+		// 			left += 5
+		// 			ele.style.left = left + 'px';
+		// 		}else{
+		// 			clearInterval(t)
+		// 			if(callback){
+		// 				callback()
+		// 			}
+		// 		}
+		// 	},50)
+		// }
+		// 回调地狱
+		// move(ball1,300,function(){
+		// 	move(ball2,300,function(){
+		// 		move(ball3,300)
+		// 	})
+		// })
+	
+	// promise 只有一个参数 excutor(构造器) 默认为 new时立即执行
+		// 回调函数里有两个参数  resolve(决定)成功  reject(拒绝)失败
+		// promise 都有then方法 
+		// then()执行返回一个新的promise （***重点）
+		// promise可以链式调用
+		// jquery 链式结构 通过 return this
+		// then有两个参数 为 成功 和 失败 函数
+		// function Promise(){
+		// 	function then(){
+		// 		return new Promise();
+		// 	}
+		// }
+		// 成功进入下一个成功回调 失败进入失败回调 如果值为普通值直接进入成功
+		// ,err=>{// 表示失败的原因
+		// 	console.log(err)
+		// }
+		// let p = new Promise((resolve,reject)=>{
+		// 	resolve('成功')
+		// 	reject('失败')
+		// })
+		// p.then(data=>{// 表示成功的原因
+		// 	console.log(data)
+		// }).then(data=>{
+		// 	console.log(data+'sss')
+		// }).catch(e=>{ // 可以代替err
+		// 	console.log(e)
+		// }).then(data=>{
+		// 	console.log(data+"catch")
+		// })
+		
+		// function move(ele,target){
+		// 	return new Promise((resolve,reject)=>{
+		// 		var left = 0;
+		// 		var t = setInterval(()=>{
+		// 			if(left<target){
+		// 				left += 5
+		// 				ele.style.left = left + 'px';
+		// 			}else{
+		// 				clearInterval(t)
+		// 				resolve(ele)
+		// 			}
+		// 		},50)
+		// 	})
+		// }
+
+		// move(ball1,200).then(data=>{
+		// 	move(ball2,200).then(data=>{
+		// 		move(ball3,200)
+		// 	})
+		// })
+		
+		// move(ball1,200).then(data=>{
+		// 	return move(ball2,200)
+		// }).then(data=>{
+		// 	return move(ball3,200)
+		// })
+		
+		// async 表示函数里有异步操作 返回promise 和 await 配合使用 
+		// await后通常跟 promise （也可以跟普通值）
+		// async function m(){
+		// 	await move(ball1,200);
+		// 	await move(ball2,200);
+		// 	await move(ball3,200);
+		// }
+		// m().then(data=>{
+		// 	alert('YES!')
+		// })
+		
+		// let p1 = new Promise((resolve,reject)=>{
+		// 	setTimeout(()=>{
+		// 		// console.log(1)	
+		// 		resolve(1)
+		// 	},100)
+		// })
+		// let p2 = new Promise((resolve,reject)=>{
+		// 	setTimeout(()=>{
+		// 		// console.log(2)	
+		// 		resolve(2)
+		// 	},10)
+		// })
+		// // 解构赋值
+		// Promise.all([p1,p2]).then(([r1,r2])=>{
+		// 	console.log(r1,r2)
+
+		// })
+		// // 
+		// Promise.race([p1,p2]).then(data=>{
+		// 	console.log(data)
+		// })
+
+		// 都执行完 再执行
+		// Promise.all([move(ball1,200),move(ball2,200)]).then(data=>{
+		// 	console.log(data+' ')
+		// })
+		// race 跑 谁跑的快就用谁的
+		// Promise.race([move(ball1,200),move(ball2,200)]).then(data=>{
+		// 	console.log(data)
+		// })
+	// generator
+	// 
+	
+
+
+
+
+
+
+
+
+
+
+	// 
+	// status定义promise的状态
+	// value 表示成功的值
+	// reason 表示失败的值
+	// class Promise{
+	// 	constructor(excutor){
+	// 		this.status = "pending";
+	// 		this.value = undefined;
+	// 		this.reason = undefined;
+	// 		resolve=(value)=>{//成功时的状态转换函数
+	// 			if(this.status==="pending"){
+	// 				this.status='resolved';
+	// 				this.value = value;
+	// 			}
+	// 		};
+	// 		reject=(reason)=>{//失败时的状态转换函数
+	// 			if(this.status==="pending"){
+	// 				this.status='reject';
+	// 				this.reason = reason;
+	// 			}
+	// 		};
+	// 		try{
+	// 			excutor(resolve,reject)
+	// 		}catch(e){
+	// 			reject(e)
+	// 		}
+			
+	// 	}
+	// 	then(onFufilled,onReject){
+	// 		// 如果成功走成功的回调 如果失败走失败的回调
+	// 		if(this.status==="resolved"){
+	// 			onFufilled(this.value)
+	// 		}
+	// 		if(this.status==="reject"){
+	// 			onReject(this.reason)
+	// 		}
+	// 	}
+	// }
+	// let p = new Promise((resolve,reject)=>{
+	// 	resolve('value');
+	// })
+	// p.then(data=>{
+
+	// },err=>{
+
+	// })
+
+</script>
+</html>
